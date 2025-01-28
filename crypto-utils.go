@@ -9,16 +9,11 @@ import (
 )
 
 /*
- * AES key.
- */
-const keySTR = "LJV8J0m*J.TbgfqE"
-
-/*
  * Encrypt plantext with AES algorithm.
  * Return encrypted hex string.
  */
-func Encrypt(plaintext string) (string, error) {
-	block, err := aes.NewCipher([]byte(keySTR))
+func Encrypt(key string, plaintext string) (string, error) {
+	block, err := aes.NewCipher([]byte(key))
 	if err != nil {
 		return "", err
 	}
@@ -41,14 +36,14 @@ func Encrypt(plaintext string) (string, error) {
  * Decrypt hex string with AES algorithm.
  * Return decrypted plantext.
  */
-func Decrypt(ciphertext string) (string, error) {
+func Decrypt(key string, ciphertext string) (string, error) {
 	cipheSlice, err := hex.DecodeString(ciphertext)
 
 	if err != nil {
 		return "", err
 	}
 
-	block, err := aes.NewCipher([]byte(keySTR))
+	block, err := aes.NewCipher([]byte(key))
 	if err != nil {
 		return "", err
 	}
